@@ -3,6 +3,19 @@ plugins {
     id "dev.architectury.loom" version "0.11.0-SNAPSHOT" apply false
 }
 
+def getGitRef() {
+    try {
+        final def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-parse', '--short', 'HEAD'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    } catch (final Throwable ignored) {
+        return 'unknown'
+    }
+}
+
 architectury {
     minecraft = rootProject.minecraft_version
 }
@@ -29,7 +42,7 @@ allprojects {
     apply plugin: "maven-publish"
 
     archivesBaseName = rootProject.archives_base_name
-    version = rootProject.semver
+    version = "${rootProject.semver}+${getGitRef()}"
     group = rootProject.maven_group
 
     repositories {
