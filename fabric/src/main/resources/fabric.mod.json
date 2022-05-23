@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "oc2",
+  "version": "${version}",
+  "name": "OpenComputers II",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": [
+    "Me!"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "Insert License Here",
+  "icon": "assets/oc2/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "li.cil.oc2.common.fabric.MainFabric"
+    ]
+  },
+  "mixins": [
+    "oc2.mixins.json",
+    "oc2-common.mixins.json"
+  ],
+  "depends": {
+    "minecraft": ">=1.18.2",
+    "fabric": "*",
+    "architectury": ">=4.4.59"
+  }
+}
