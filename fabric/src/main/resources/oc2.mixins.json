@@ -1,10 +1,12 @@
 {
   "required": true,
-  "package": "li.cil.oc2.fabric.common.mixin",
+  "package": "li.cil.oc2.common.fabric.mixin",
   "compatibilityLevel": "JAVA_16",
+  "minVersion": "0.8",
   "client": [
   ],
   "mixins": [
+    "ModBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

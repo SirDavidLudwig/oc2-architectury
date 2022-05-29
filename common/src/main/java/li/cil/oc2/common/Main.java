@@ -5,6 +5,16 @@ import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.Registries;
 import dev.architectury.registry.registries.RegistrySupplier;
+import li.cil.ceres.Ceres;
+import li.cil.oc2.common.block.Blocks;
+import li.cil.oc2.common.blockentity.BlockEntities;
+import li.cil.oc2.common.blockentity.CreativeEnergyBlockEntity;
+import li.cil.oc2.common.bus.device.DeviceTypes;
+import li.cil.oc2.common.item.Items;
+import li.cil.oc2.common.tags.BlockTags;
+import li.cil.oc2.common.tags.ItemTags;
+import li.cil.oc2.common.util.RegistryUtils;
+import li.cil.sedna.Sedna;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -13,20 +23,26 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Supplier;
 
-public class Main {
-    public static final String MOD_ID = "oc2";
-    // We can use this if we don't want to use DeferredRegister
-    public static final Supplier<Registries> REGISTRIES = Suppliers.memoize(() -> Registries.get(MOD_ID));
-    // Registering a new creative tab
-    public static final CreativeModeTab EXAMPLE_TAB = CreativeTabRegistry.create(new ResourceLocation(MOD_ID, "example_tab"), () ->
-            new ItemStack(Main.EXAMPLE_ITEM.get()));
-    
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(MOD_ID, Registry.ITEM_REGISTRY);
-    public static final RegistrySupplier<Item> EXAMPLE_ITEM = ITEMS.register("example_item", () ->
-            new Item(new Item.Properties().tab(Main.EXAMPLE_TAB)));
-    
-    public static void init() {
-        ITEMS.register();
-        System.out.println(ExampleExpectPlatform.getConfigDirectory().toAbsolutePath().normalize().toString());
+public abstract class Main {
+
+    public void init() {
+        Ceres.initialize();
+        Sedna.initialize();
+
+        RegistryUtils.begin();
+
+        ItemTags.initialize();
+        BlockTags.initialize();
+        Blocks.initialize();
+        Items.initialize();
+        BlockEntities.initialize();
+
+//        DeviceTypes.initialize();
+
+        RegistryUtils.finish();
+
+        CreativeEnergyBlockEntity.installComponents();
     }
+
+    protected abstract void initConfig();
 }

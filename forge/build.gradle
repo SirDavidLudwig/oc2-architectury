@@ -13,6 +13,7 @@ loom {
     forge {
         convertAccessWideners = true
         extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+        mixinConfig "oc2.mixins.json"
     }
 }
 
@@ -35,6 +36,10 @@ dependencies {
 
     modCompileOnly "mezz.jei:jei-${rootProject.minecraft_version}:${rootProject.jei_version}:api"
     modRuntimeOnly "mezz.jei:jei-${rootProject.minecraft_version}:${rootProject.jei_version}"
+
+    modImplementation "curse.maven:create-328085:3737418"
+    modImplementation "curse.maven:flywheel-486392:3737402"
+    modImplementation "curse.maven:createaddition-439890:3794929"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }

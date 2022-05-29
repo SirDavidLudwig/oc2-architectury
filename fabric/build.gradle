@@ -19,6 +19,32 @@ configurations {
     developmentFabric.extendsFrom common
 }
 
+repositories {
+    maven {
+        // Location of the maven that hosts REI files
+        name 'Shedman maven'
+        url 'https://maven.shedaniel.me/'
+    }
+    maven {
+        url = "https://maven.jamieswhiteshirt.com/libs-release"
+        content {
+            includeGroup("com.jamieswhiteshirt")
+        }
+    }
+    maven {
+        // Location of the maven for vazkii's mods
+        name 'blamejared'
+        url 'https://maven.blamejared.com'
+    }
+    maven { url = "https://api.modrinth.com/maven" }
+    maven { url = "https://mvn.devos.one/releases/" }
+    maven { url = "https://mvn.devos.one/snapshots/" }
+    maven { url = "https://maven.tterrag.com/" }
+    maven { url = "https://jitpack.io/" }
+    maven { url = "https://maven.terraformersmc.com/" }
+    maven { url = "https://maven.cafeteria.dev" }
+}
+
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
@@ -31,12 +57,15 @@ dependencies {
         exclude(module: "fabric-api")
     }
 
-    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}") { transitive = false }
-    modImplementation("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}") { transitive = false }
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${rootProject.rei_version}") { transitive = false }
+    modImplementation("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}") { transitive = false }
 
     include modApi("teamreborn:energy:${rootProject.energy_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
+
+    modImplementation("com.simibubi:Create:${rootProject.create_version}")
+    modImplementation("curse.maven:createaddition-439890:3794931")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
